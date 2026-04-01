@@ -1,89 +1,202 @@
-/* 全域設定 */
-:root {
-    --primary: #2563eb;
-    --bg-gradient: radial-gradient(circle at center, #f8fafc 0%, #e2e8f0 100%);
-    --white: #ffffff;
-}
-
-body, html {
+/* --- 1. 基礎重設 --- */
+* {
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
 }
 
-/* 全畫面置中容器 */
-.profile-header {
-    min-height: 92vh; /* 扣除 footer 的高度 */
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+    /* 避免切換時出現奇怪的捲軸 */
+    overflow-x: hidden;
+}
+
+/* --- 2. 導覽列 (固定在頂端) --- */
+nav {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    background: var(--bg-gradient);
-    padding: 20px;
-}
-
-/* 名片主體樣式 */
-.profile-card {
-    background: var(--white);
-    padding: 50px 40px;
-    border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 450px;
+    padding: 0 5%;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed;
     width: 100%;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    top: 0;
+    z-index: 1000;
 }
 
-.profile-card:hover {
-    transform: translateY(-10px);
+.logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #764ba2;
 }
 
-.divider {
-    width: 100%;          /* 撐滿父容器（名片）的寬度 */
-    height: 5px;          /* 稍微加厚一點點，會更明顯 */
-    background: #1d4ed8;  /* 使用較深的藍色 (比起原先的 #2563eb 更深) */
-    margin: 25px 0;       /* 上下間隔 25px，左右不需要 auto 因為已經滿了 */
-    border: none;         /* 確保沒有預設邊框 */
-}
-
-/* 按鈕樣式 */
-.cta-group {
-    margin-top: 30px;
+nav ul {
     display: flex;
-    flex-direction: column; /* 手機版垂直排列 */
-    gap: 12px;
+    list-style: none;
 }
 
-/* 當螢幕較寬時橫向排列 */
-@media (min-width: 480px) {
-    .cta-group { flex-direction: row; justify-content: center; }
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: 0.3s;
 }
 
-.btn-primary {
-    background: var(--primary);
+nav ul li a:hover {
+    color: #667eea;
+}
+
+/* --- 3. 核心切換邏輯 (重點區域) --- */
+
+/* 預設隱藏所有區塊 */
+header, section {
+    display: none;
+    opacity: 0;
+    padding: 100px 10%; /* 留出 nav 的空間 */
+    min-height: 100vh;
+    animation: fadeIn 0.6s forwards ease-out;
+}
+
+/* 預設顯示首頁 (#about) */
+#about {
+    display: flex; /* Header 使用 flex 置中內容 */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+
+/* 當網頁有任何 target 出現時，先讓預設的 #about 消失 */
+body:has(section:target) #about {
+    display: none;
+}
+
+/* 顯示目前的目標區塊 */
+header:target, 
+section:target {
+    display: block;
+}
+
+/* 特殊處理：如果 header 自己被點擊 (#about)，維持 flex 佈局 */
+header:target {
+    display: flex;
+}
+
+/* --- 4. 區塊樣式製作 --- */
+
+/* 英雄區 (About) */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 12px 24px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.btn-outline {
-    border: 1px solid #e2e8f0;
-    color: #64748b;
-    padding: 12px 24px;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.2s;
-}
-
-.btn-outline:hover {
-    background: #f1f5f9;
-}
-
-.footer {
     text-align: center;
-    padding: 20px 0;
-    color: #94a3b8;
-    font-size: 0.85rem;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content h1 span {
+    color: #ffde59;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 35px;
+    background: #fff;
+    color: #764ba2;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* 技能卡片 */
+#skills h2, #projects h2 {
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #444;
+}
+
+.skill-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.skill-card {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-bottom: 3px solid #667eea;
+}
+
+/* 作品集網格 */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.project-item {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: 0.3s;
+    border: 1px solid #eee;
+}
+
+.project-item:hover {
+    transform: translateY(-10px);
+    border-color: #667eea;
+}
+
+.project-info h3 {
+    margin-bottom: 10px;
+    color: #764ba2;
+}
+
+/* --- 5. 頁尾 --- */
+footer {
+    text-align: center;
+    padding: 40px 0;
+    background: #333;
+    color: #fff;
+}
+
+/* --- 6. 動畫定義 --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 2rem; }
+    nav { padding: 0 20px; }
+    nav ul { display: none; } /* 手機端建議改用漢堡選單，此處先簡單隱藏 */
 }
