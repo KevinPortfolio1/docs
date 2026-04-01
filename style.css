@@ -56,7 +56,7 @@ nav ul li a:hover {
 /* --- 3. 核心切換邏輯 (重點區域) --- */
 
 /* 預設隱藏所有區塊 */
-header, section {
+section {
     display: none;
     opacity: 0;
     padding: 100px 10%; /* 留出 nav 的空間 */
