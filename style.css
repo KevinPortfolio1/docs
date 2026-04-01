@@ -1,108 +1,89 @@
-* {
+/* 全域設定 */
+:root {
+    --primary: #2563eb;
+    --bg-gradient: radial-gradient(circle at center, #f8fafc 0%, #e2e8f0 100%);
+    --white: #ffffff;
+}
+
+body, html {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
 }
 
-body {
-    font-family: 'Noto Sans TC', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    scroll-behavior: smooth; /* 平滑捲動 */
-}
-
-/* 導覽列 */
-nav {
+/* 全畫面置中容器 */
+.profile-header {
+    min-height: 92vh; /* 扣除 footer 的高度 */
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem 5%;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: fixed;
+    justify-content: center;
+    background: var(--bg-gradient);
+    padding: 20px;
+}
+
+/* 名片主體樣式 */
+.profile-card {
+    background: var(--white);
+    padding: 50px 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 450px;
     width: 100%;
-    top: 0;
-    z-index: 1000;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-nav ul {
-    display: flex;
-    list-style: none;
+.profile-card:hover {
+    transform: translateY(-10px);
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    margin-left: 20px;
-    font-weight: bold;
+.divider {
+    width: 100%;          /* 撐滿父容器（名片）的寬度 */
+    height: 5px;          /* 稍微加厚一點點，會更明顯 */
+    background: #1d4ed8;  /* 使用較深的藍色 (比起原先的 #2563eb 更深) */
+    margin: 25px 0;       /* 上下間隔 25px，左右不需要 auto 因為已經滿了 */
+    border: none;         /* 確保沒有預設邊框 */
 }
 
-/* 英雄區 */
-header {
-    height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.hero-content h1 span {
-    color: #ffde59;
-}
-
-.btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 30px;
-    background: #fff;
-    color: #764ba2;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-/* 區塊通用樣式 */
-section {
-    padding: 80px 10%;
-    text-align: center;
-}
-
-/* 技能卡片 */
-.skill-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.skill-card {
-    background: #f4f4f4;
-    padding: 15px 25px;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-/* 作品集網格 */
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+/* 按鈕樣式 */
+.cta-group {
     margin-top: 30px;
-}
-
-.project-item {
-    background: #eee;
-    height: 200px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    transition: transform 0.3s;
+    flex-direction: column; /* 手機版垂直排列 */
+    gap: 12px;
 }
 
-.project-item:hover {
-    transform: translateY(-5px);
+/* 當螢幕較寬時橫向排列 */
+@media (min-width: 480px) {
+    .cta-group { flex-direction: row; justify-content: center; }
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-outline {
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-outline:hover {
+    background: #f1f5f9;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    color: #94a3b8;
+    font-size: 0.85rem;
 }
