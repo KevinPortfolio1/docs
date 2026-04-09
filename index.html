@@ -11,7 +11,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold text-primary" href="#">DEV.LOG</a>
+            <a class="navbar-brand fw-bold text-primary" href="#">個人靜態網頁</a>
             <div class="navbar-nav ms-auto">
                 <a class="nav-link fw-semibold" href="#">首頁</a>
                 <a class="nav-link btn btn-primary text-white px-4 ms-lg-3" href="#main-app">進入系統</a>
@@ -23,38 +23,38 @@
         <div class="container">
             <h1 class="display-1 fw-black mb-3">SYSTEM DESIGNER</h1>
             <p class="lead mb-5 opacity-75">探索自動化、重構與 DevOps 的極限</p>
-            <a href="#main-app" class="btn btn-light btn-lg px-5 py-3 fw-bold rounded-pill shadow">啟動專案庫</a>
+            <a href="#main-app" class="btn btn-light btn-lg px-5 py-3 fw-bold rounded-pill shadow">技術頁面</a>
         </div>
     </header>
 
     <main id="main-app" class="container-fluid p-0">
         <div class="row g-0 h-100">
             <aside class="col-lg-3 col-xl-2 bg-dark text-white p-4 side-panel">
-                <h6 class="text-secondary text-uppercase small fw-bold mb-4">Dashboard</h6>
-                <div class="list-group list-group-flush">
-                    <a href="#about-section" class="list-group-item list-group-item-action bg-transparent text-white border-0 py-3 active">關於技術</a>
-                    <a href="#skills-section" class="list-group-item list-group-item-action bg-transparent text-white border-0 py-3">技能矩陣</a>
-                    <a href="#projects-section" class="list-group-item list-group-item-action bg-transparent text-white border-0 py-3">專案展示</a>
-                </div>
-            </aside>
+				<h6 class="text-secondary text-uppercase small fw-bold mb-4">Dashboard</h6>
+				<div class="list-group list-group-flush" id="menu-list">
+					<a href="javascript:void(0)" data-target="about-section" class="list-group-item list-group-item-action bg-transparent text-white border-0 py-3 active">關於技術</a>
+					<a href="javascript:void(0)" data-target="skills-section" class="list-group-item list-group-item-action bg-transparent text-white border-0 py-3">技能矩陣</a>
+					<a href="javascript:void(0)" data-target="projects-section" class="list-group-item list-group-item-action bg-transparent text-white border-0 py-3">專案展示</a>
+				</div>
+			</aside>
 
-            <article class="col-lg-9 col-xl-10 p-5 bg-white shadow-inner overflow-auto content-area">
-                <section id="about-section" class="mb-5">
-                    <div class="card border-0 shadow-sm p-4 rounded-4">
-                        <h2 class="fw-bold mb-4">關於技術</h2>
-                        <p class="text-muted lead">我們採用 Bootstrap 5 構建具備高度響應性的企業級介面...</p>
-                    </div>
-                </section>
-                
-                <section id="skills-section">
-                    <h2 class="fw-bold mb-4">專業技能</h2>
-                    <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">JavaScript</span>
-                        <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">System Design</span>
-                        <span class="badge bg-info-subtle text-info px-3 py-2 rounded-pill">DevOps</span>
-                    </div>
-                </section>
-            </article>
+		<article class="col-lg-9 col-xl-10 p-5 bg-white overflow-auto content-area">
+			<section id="about-section" class="content-section active">
+				<div class="card border-0 shadow-sm p-4 rounded-4">
+					<h2>關於技術</h2>
+					<p>這是透過 JavaScript 動態切換的內容...</p>
+				</div>
+			</section>
+
+			<section id="skills-section" class="content-section">
+				<h2>專業技能</h2>
+				</section>
+
+			<section id="projects-section" class="content-section">
+				<h2>專案展示</h2>
+				</section>
+		</article>
+			
         </div>
     </main>
 
