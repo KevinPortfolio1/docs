@@ -1,8 +1,6 @@
 /* --- 1. 基礎佈局鎖定 --- */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; padding: 0; box-sizing: border-box;
 }
 
 body {
@@ -10,30 +8,39 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* 禁止全網頁滾動 */
 }
 
-/* --- 2. Nav：固定高度且不擠壓內容 --- */
-nav {
-    flex: 0 0 70px; /* 強制導覽列高度為 70px */
-    background: white;
+/* --- 2. 初始顯示：Header (Hero) --- */
+#hero-screen {
+    flex: 1; /* 佔滿剩餘空間 */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 0 5%;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
+    z-index: 10;
 }
 
-/* --- 3. Main：精確計算剩餘高度 --- */
-main {
-    flex: 1; 
-    display: flex;
-    height: calc(100vh - 70px - 50px); /* 100vh 扣除 nav(70) 與 footer(50) */
+/* --- 3. 初始隱藏：Main (App介面) --- */
+#main-app {
+    display: none; /* 一開始不顯示 */
+    flex: 1;
     overflow: hidden;
 }
 
-/* 左側菜單 */
+/* --- 4. 狀態切換邏輯 (核心) --- */
+
+/* 當網址有任何 :target 時 (例如 #about) */
+body:has(:target) #hero-screen {
+    display: none; /* 隱藏大標頭 */
+}
+
+body:has(:target) #main-app {
+    display: flex; /* 顯示雙欄主介面 */
+}
+
+/* --- 5. Main 內部雙欄樣式 --- */
 .side-menu {
     flex: 0 0 250px;
     background: #2c3e50;
@@ -43,62 +50,34 @@ main {
     gap: 10px;
 }
 
-/* 右側展示容器 */
+.menu-item {
+    color: #bdc3c7;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.05);
+}
+
 .content-display {
     flex: 1;
-    overflow-y: auto; /* 只有這裡可以滾動 */
-    padding: 30px;
-    background: #fdfdfd;
-    position: relative;
-}
-
-/* --- 4. 分頁顯示邏輯 --- */
-
-/* 預設隱藏所有內容 */
-#about, section {
-    display: none;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-}
-
-/* 狀態 A：當 URL 沒有特定 ID (或 ID 為 #about) 時，顯示 About */
-#about {
-    display: flex; /* 保持 Hero 區居中佈局 */
-}
-
-/* 狀態 B：當有點擊其他目標時，隱藏 About (除了目標本身是 #about 時) */
-body:has(section:target) #about {
-    display: none;
-}
-
-/* 狀態 C：顯示被選中的目標 */
-header:target, section:target {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 如果 Header 是目標，維持其 Flex 居中樣式 */
-header:target {
-    display: flex;
-}
-
-/* --- 5. 區塊樣式修正 --- */
-
-header#about {
-    min-height: 100%; /* 確保高度撐滿右側 */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 15px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     padding: 40px;
+    background: white;
+    overflow-y: auto;
+}
+
+/* --- 6. 其他 UI 樣式 --- */
+nav {
+    height: 70px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 footer {
-    flex: 0 0 50px; /* 固定頁尾高度 */
+    height: 50px;
     background: #333;
     color: white;
     display: flex;
@@ -106,22 +85,12 @@ footer {
     align-items: center;
 }
 
-/* 響應式：平板以下關閉雙欄以免擠壓 */
-@media (max-width: 900px) {
-    main {
-        flex-direction: column;
-        height: auto;
-        overflow: visible;
-    }
-    body {
-        overflow: auto;
-        height: auto;
-    }
-    .side-menu {
-        flex: 0 0 auto;
-        flex-direction: row;
-        position: sticky;
-        top: 0;
-        z-index: 99;
-    }
+.btn {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background: white;
+    color: #764ba2;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
 }
