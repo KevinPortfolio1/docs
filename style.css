@@ -8,15 +8,16 @@
 body {
     font-family: 'Noto Sans TC', sans-serif;
     background-color: #f4f7f6;
-    height: 100vh;
+    height: 100vh; /* 鎖定全螢幕高度 */
     display: flex;
     flex-direction: column;
+    overflow: hidden; /* 防止全頁捲動 */
 }
 
-/* --- 2. 導覽列 (維持固定) --- */
+/* --- 2. 導覽列 --- */
 nav {
-    height: 70px;
-    background: rgba(255, 255, 255, 0.9);
+    flex: 0 0 70px; /* 固定高度 */
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: space-between;
@@ -28,139 +29,147 @@ nav {
 
 /* --- 3. 核心佈局：左右分欄 --- */
 main {
-    flex: 1; /* 佔滿剩餘高度 */
+    flex: 1; /* 自動撐開剩餘空間 */
     display: flex;
-    overflow: hidden; /* 防止主層出現捲軸 */
-    margin-top: 5px;
+    overflow: hidden; /* 讓內部的展示區自己滾動 */
 }
 
-/* 左側：功能區 (固定寬度) */
+/* 左側：功能區 */
 .side-menu {
-    flex: 0 0 250px;
+    flex: 0 0 260px;
     background: #2c3e50;
-    padding: 20px;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    color: white;
+    gap: 15px;
+    z-index: 10;
 }
 
 .menu-item {
-    padding: 15px;
-    color: #bdc3c7;
+    padding: 15px 20px;
+    color: #ecf0f1;
     text-decoration: none;
-    border-radius: 8px;
-    transition: 0.3s;
-    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .menu-item:hover {
     background: #3498db;
-    color: white;
+    transform: translateX(5px);
 }
 
-/* 右側：功能展示區 (內容切換) */
+/* 右側：功能展示區 */
 .content-display {
     flex: 1;
     position: relative;
-    background: #fff;
-    overflow-y: auto; /* 只有右側內容區可滾動 */
+    background: #fdfdfd;
+    overflow-y: auto; /* 內容過長時在此滾動 */
     padding: 40px;
 }
 
-/* --- 4. 顯示與隱藏邏輯 (分頁核心) --- */
+/* --- 4. 顯示與隱藏邏輯 (修正重點) --- */
 
-/* 初始狀態：隱藏所有區塊 */
-header, section {
+/* 隱藏所有 section 和預設 header */
+section, header {
     display: none;
     opacity: 0;
-    transform: translateX(20px);
-    transition: all 0.4s ease-out;
+    transform: translateY(15px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* 狀態 A：首頁 (About) - 當沒有 target 時顯示 */
+/* 狀態 A：無特定 Target 時顯示首頁 (About) */
 #about {
-    display: flex; /* Header 通常用 flex 居中 */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
+    min-height: 100%; /* 撐滿右側容器 */
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
 }
 
-/* 狀態 B：當有點擊任何目標時，隱藏首頁 */
-body:has(:target) #about {
-    display: none;
+/* 狀態 B：當有點擊目標時，強制隱藏首頁 */
+body:has(section:target) #about {
+    display: none !important;
 }
 
 /* 狀態 C：顯示被選中的 Section */
 section:target {
-    display: block;
+    display: block; /* 或是 flex，視你的內容而定 */
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
 }
 
-/* --- 5. 區塊樣式美化 (延用你的設計) --- */
+/* --- 5. 樣式美化 --- */
 
-/* 英雄區背景 */
 header#about {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    border-radius: 20px;
-    margin: 20px;
+    border-radius: 15px;
+    text-align: center;
 }
 
-/* 技能卡片 */
 .skill-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-}
-
-.skill-card {
-    background: #f8f9fa;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    border-top: 4px solid #667eea;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-
-/* 專案網格 */
-.project-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 20px;
 }
 
-.project-item {
-    background: #fff;
+.skill-card {
+    background: white;
     padding: 25px;
     border-radius: 12px;
-    border: 1px solid #eee;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-top: 5px solid #667eea;
+    text-align: center;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.project-item {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
 }
 
 /* --- 6. 頁尾 --- */
 footer {
-    height: 50px;
-    background: #333;
-    color: white;
+    flex: 0 0 50px;
+    background: #1a1a1a;
+    color: #888;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
-/* --- 7. 響應式：手機版變回上下堆疊 --- */
+/* --- 7. 響應式修正 --- */
 @media (max-width: 768px) {
+    body {
+        overflow-y: auto; /* 手機版允許全頁捲動 */
+        height: auto;
+    }
     main {
         flex-direction: column;
+        height: auto;
     }
     .side-menu {
         flex: 0 0 auto;
         flex-direction: row;
         overflow-x: auto;
+        padding: 10px;
+        position: sticky;
+        top: 70px;
+    }
+    .menu-item {
+        white-space: nowrap;
+        padding: 10px 15px;
     }
 }
