@@ -1,22 +1,35 @@
-/* --- 1. 全域重設 --- */
+/* --- 1. 基礎重設與全域變數 --- */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --side-bg: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    --accent-color: #3b82f6;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --card-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 * {
-    margin: 0; padding: 0; box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    background-color: #f0f2f5;
+    font-family: 'Segoe UI', 'Noto Sans TC', sans-serif;
+    color: var(--text-main);
+    background-color: #f1f5f9;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: hidden; /* 鎖定視窗高度，避免全局捲動 */
 }
 
-/* --- 2. 精緻導覽列 --- */
+/* --- 2. 導覽列 (Nav) 美化 --- */
 nav {
     height: 70px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(15px); /* 磨砂玻璃 */
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -32,131 +45,132 @@ nav {
     letter-spacing: 1px;
 }
 
-.logo span { color: #667eea; }
+.logo span {
+    color: #667eea;
+}
 
-nav ul { display: flex; list-style: none; gap: 30px; }
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+}
 
 nav ul li a {
     text-decoration: none;
-    color: #444;
+    color: var(--text-muted);
     font-size: 0.95rem;
-    font-weight: 500;
-    transition: 0.3s;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: var(--transition-smooth);
     position: relative;
 }
 
-nav ul li a::after {
-    content: '';
-    position: absolute; width: 0; height: 2px;
-    bottom: -5px; left: 0; background: #667eea;
-    transition: 0.3s;
+nav ul li a:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
 }
 
-nav ul li a:hover::after { width: 100%; }
-
-/* --- 3. 初始頁面樣式 --- */
+/* --- 3. 初始全螢幕 Header --- */
 #hero-screen {
     flex: 1;
-    background: radial-gradient(circle at top right, #764ba2, #667eea);
+    background: var(--primary-gradient);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     color: white;
+    z-index: 10;
 }
 
-.hero-content h1 { font-size: 4rem; margin-bottom: 10px; }
-.hero-content p { font-size: 1.2rem; opacity: 0.9; }
+.hero-content h1 {
+    font-size: 4.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
+}
+
+.hero-content p {
+    font-size: 1.4rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
 
 .btn-main {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 15px 40px;
+    padding: 16px 45px;
     background: white;
     color: #667eea;
     text-decoration: none;
     border-radius: 50px;
-    font-weight: bold;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    transition: 0.3s;
+    font-weight: 700;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transition: var(--transition-smooth);
 }
 
-.btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+.btn-main:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
 
-/* --- 4. 切換邏輯 --- */
-#main-app { display: none; flex: 1; overflow: hidden; }
+/* --- 4. 系統主介面 (Main) 切換與排版 --- */
+#main-app {
+    display: none; /* 初始隱藏 */
+    flex: 1;
+    margin: 20px;
+    background: white;
+    border-radius: 30px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.7);
+}
 
+/* 狀態切換邏輯 */
 body:has(:target) #hero-screen { display: none; }
 body:has(:target) #main-app { display: flex; }
 
-/* --- 5. Main 雙欄美化排版 --- */
+/* 左側邊欄 (Aside) */
 .side-menu {
     flex: 0 0 280px;
-    background: #1e293b; /* 深色選單 */
-    padding: 30px 20px;
+    background: var(--side-bg);
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .menu-label {
-    color: #64748b;
     font-size: 0.75rem;
+    color: #64748b;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-    padding-left: 15px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding-left: 20px;
 }
 
 .menu-item {
-    color: #cbd5e1;
+    color: #94a3b8;
     text-decoration: none;
-    padding: 14px 18px;
-    border-radius: 12px;
+    padding: 15px 20px;
+    border-radius: 16px;
     font-size: 0.95rem;
-    transition: 0.2s;
+    font-weight: 500;
+    transition: var(--transition-smooth);
 }
 
-.menu-item:hover { background: rgba(255,255,255,0.05); color: white; }
-.menu-item.active { background: #667eea; color: white; }
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    padding-left: 30px;
+}
 
-/* 右側展示區 */
+.menu-item.active, .menu-item:target {
+    background: var(--accent-color);
+    color: white;
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* 右側展示區 (Article) */
 .content-display {
     flex: 1;
-    background: #f8fafc;
-    padding: 40px;
-    overflow-y: auto;
-}
-
-.content-card {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-    border: 1px solid rgba(0,0,0,0.05);
-    margin-bottom: 30px;
-}
-
-.content-card h2 { margin-bottom: 20px; color: #1e293b; }
-
-.skill-tags span {
-    display: inline-block;
-    padding: 8px 16px;
-    background: #eff6ff;
-    color: #2563eb;
-    border-radius: 8px;
-    margin-right: 10px;
-    font-weight: 600;
-}
-
-/* --- 6. 頁尾 --- */
-footer {
-    height: 50px;
-    background: white;
-    color: #94a3b8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.85rem;
-    border-top: 1px solid rgba(0,0,0,0.05);
-}
+    background-color: #f8fafc;
