@@ -1,4 +1,4 @@
-/* --- 1. 基礎重設與變數 --- */
+/* --- 1. 基礎佈局鎖定 --- */
 * {
     margin: 0;
     padding: 0;
@@ -7,18 +7,16 @@
 
 body {
     font-family: 'Noto Sans TC', sans-serif;
-    background-color: #f4f7f6;
-    height: 100vh; /* 鎖定全螢幕高度 */
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* 防止全頁捲動 */
+    overflow: hidden; /* 禁止全網頁滾動 */
 }
 
-/* --- 2. 導覽列 --- */
+/* --- 2. Nav：固定高度且不擠壓內容 --- */
 nav {
-    flex: 0 0 70px; /* 固定高度 */
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    flex: 0 0 70px; /* 強制導覽列高度為 70px */
+    background: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,149 +25,103 @@ nav {
     z-index: 1000;
 }
 
-/* --- 3. 核心佈局：左右分欄 --- */
+/* --- 3. Main：精確計算剩餘高度 --- */
 main {
-    flex: 1; /* 自動撐開剩餘空間 */
+    flex: 1; 
     display: flex;
-    overflow: hidden; /* 讓內部的展示區自己滾動 */
+    height: calc(100vh - 70px - 50px); /* 100vh 扣除 nav(70) 與 footer(50) */
+    overflow: hidden;
 }
 
-/* 左側：功能區 */
+/* 左側菜單 */
 .side-menu {
-    flex: 0 0 260px;
+    flex: 0 0 250px;
     background: #2c3e50;
-    padding: 30px 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    z-index: 10;
+    gap: 10px;
 }
 
-.menu-item {
-    padding: 15px 20px;
-    color: #ecf0f1;
-    text-decoration: none;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.menu-item:hover {
-    background: #3498db;
-    transform: translateX(5px);
-}
-
-/* 右側：功能展示區 */
+/* 右側展示容器 */
 .content-display {
     flex: 1;
-    position: relative;
+    overflow-y: auto; /* 只有這裡可以滾動 */
+    padding: 30px;
     background: #fdfdfd;
-    overflow-y: auto; /* 內容過長時在此滾動 */
-    padding: 40px;
+    position: relative;
 }
 
-/* --- 4. 顯示與隱藏邏輯 (修正重點) --- */
+/* --- 4. 分頁顯示邏輯 --- */
 
-/* 隱藏所有 section 和預設 header */
-section, header {
+/* 預設隱藏所有內容 */
+#about, section {
     display: none;
     opacity: 0;
-    transform: translateY(15px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
 }
 
-/* 狀態 A：無特定 Target 時顯示首頁 (About) */
+/* 狀態 A：當 URL 沒有特定 ID (或 ID 為 #about) 時，顯示 About */
 #about {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100%; /* 撐滿右側容器 */
-    opacity: 1;
-    transform: translateY(0);
+    display: flex; /* 保持 Hero 區居中佈局 */
 }
 
-/* 狀態 B：當有點擊目標時，強制隱藏首頁 */
+/* 狀態 B：當有點擊其他目標時，隱藏 About (除了目標本身是 #about 時) */
 body:has(section:target) #about {
-    display: none !important;
+    display: none;
 }
 
-/* 狀態 C：顯示被選中的 Section */
-section:target {
-    display: block; /* 或是 flex，視你的內容而定 */
+/* 狀態 C：顯示被選中的目標 */
+header:target, section:target {
+    display: block;
     opacity: 1;
     transform: translateY(0);
 }
 
-/* --- 5. 樣式美化 --- */
+/* 如果 Header 是目標，維持其 Flex 居中樣式 */
+header:target {
+    display: flex;
+}
+
+/* --- 5. 區塊樣式修正 --- */
 
 header#about {
+    min-height: 100%; /* 確保高度撐滿右側 */
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border-radius: 15px;
-    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
 }
 
-.skill-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 20px;
-}
-
-.skill-card {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border-top: 5px solid #667eea;
-    text-align: center;
-}
-
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-}
-
-.project-item {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-}
-
-/* --- 6. 頁尾 --- */
 footer {
-    flex: 0 0 50px;
-    background: #1a1a1a;
-    color: #888;
+    flex: 0 0 50px; /* 固定頁尾高度 */
+    background: #333;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.85rem;
 }
 
-/* --- 7. 響應式修正 --- */
-@media (max-width: 768px) {
-    body {
-        overflow-y: auto; /* 手機版允許全頁捲動 */
-        height: auto;
-    }
+/* 響應式：平板以下關閉雙欄以免擠壓 */
+@media (max-width: 900px) {
     main {
         flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+    body {
+        overflow: auto;
         height: auto;
     }
     .side-menu {
         flex: 0 0 auto;
         flex-direction: row;
-        overflow-x: auto;
-        padding: 10px;
         position: sticky;
-        top: 70px;
-    }
-    .menu-item {
-        white-space: nowrap;
-        padding: 10px 15px;
+        top: 0;
+        z-index: 99;
     }
 }
