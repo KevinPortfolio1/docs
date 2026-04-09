@@ -3,65 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人靜態網頁 - 雙欄版</title>
+    <title>個人系統門戶</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav>
-        <div class="logo">Portfolio 2026</div>
+        <div class="logo">DEV<span>PORTFOLIO</span></div>
         <ul>
-            <li><a href="#about">關於</a></li>
-            <li><a href="#main-content">核心內容</a></li>
+            <li><a href="#">首頁</a></li>
+            <li><a href="#about-section">進入系統</a></li>
         </ul>
     </nav>
 
-    <header id="about">
+    <header id="hero-screen">
         <div class="hero-content">
             <h1>Software Developer</h1>
-            <p>專注於系統設計、程式重構與 DevOps 實踐</p>
+            <p>專注於極致的系統設計與開發實踐</p>
+            <a href="#about-section" class="btn-main">探索專案庫</a>
         </div>
     </header>
 
-    <main id="main-content" class="split-layout">
-        
-        <aside class="left-panel">
-            <section id="skills">
-                <h2>專業技能</h2>
-                <div class="skill-container">
-                    <div class="skill-card">HTML / CSS</div>
-                    <div class="skill-card">JavaScript</div>
-                    <div class="skill-card">System Design</div>
-                    <div class="skill-card">Refactoring</div>
-                    <div class="skill-card">DevOps</div>
-                </div>
-            </section>
+    <main id="main-app">
+        <aside class="side-menu">
+            <div class="menu-label">控制面板</div>
+            <a href="#about-section" class="menu-item active">關於技術</a>
+            <a href="#skills-section" class="menu-item">技能矩陣</a>
+            <a href="#projects-section" class="menu-item">專案展示</a>
         </aside>
 
-        <article class="right-panel">
-            <section id="projects">
-                <h2>專案展示</h2>
-                <div class="project-grid">
-                    <div class="project-item">
-                        <h3>Core System</h3>
-                        <p>核心系統模組設計與實作。</p>
-                    </div>
-                    <div class="project-item">
-                        <h3>Refactoring Practice</h3>
-                        <p>既有程式碼重構實踐。</p>
-                    </div>
-                    <div class="project-item">
-                        <h3>DevOps Pipeline</h3>
-                        <p>CI/CD 流程自動化部署。</p>
-                    </div>
+        <article class="content-display">
+            <section id="about-section" class="content-card">
+                <h2>關於開發技術</h2>
+                <p>我們致力於使用現代化工具鏈建立可擴展的系統架構...</p>
+            </section>
+            
+            <section id="skills-section" class="content-card">
+                <h2>專業技能矩陣</h2>
+                <div class="skill-tags">
+                    <span>HTML / CSS</span><span>JavaScript</span><span>System Design</span>
                 </div>
             </section>
         </article>
-
     </main>
 
     <footer>
-        <p>&copy; 2026 04 09</p>
+        <p>&copy; 2026 Developer Portfolio | Designed for Web</p>
     </footer>
 
 </body>
