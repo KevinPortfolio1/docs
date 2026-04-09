@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人靜態網頁</title>
+    <title>個人靜態網頁 - 雙欄版</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav>
-        <div class="logo">個人靜態網頁</div>
+        <div class="logo">Portfolio 2026</div>
         <ul>
             <li><a href="#about">關於</a></li>
-            <li><a href="#skills">技能</a></li>
-            <li><a href="#projects">專案</a></li>
+            <li><a href="#main-content">核心內容</a></li>
         </ul>
     </nav>
 
@@ -21,58 +20,48 @@
         <div class="hero-content">
             <h1>Software Developer</h1>
             <p>專注於系統設計、程式重構與 DevOps 實踐</p>
-            <a href="#projects" class="btn">查看專案</a>
         </div>
     </header>
 
-    <section id="skills">
-        <h2>專業技能</h2>
-        <div class="skill-container">
-            <div class="skill-card">HTML / CSS</div>
-            <div class="skill-card">JavaScript</div>
-            <div class="skill-card">System Design</div>
-            <div class="skill-card">Refactoring</div>
-            <div class="skill-card">DevOps</div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2>專案作品</h2>
-        <div class="project-grid">
-
-            <div class="project-item">
-                <div class="project-info">
-                    <h3>Core System</h3>
-                    <p>核心系統模組設計與實作，涵蓋資料結構與演算法應用。</p>
+    <main id="main-content" class="split-layout">
+        
+        <aside class="left-panel">
+            <section id="skills">
+                <h2>專業技能</h2>
+                <div class="skill-container">
+                    <div class="skill-card">HTML / CSS</div>
+                    <div class="skill-card">JavaScript</div>
+                    <div class="skill-card">System Design</div>
+                    <div class="skill-card">Refactoring</div>
+                    <div class="skill-card">DevOps</div>
                 </div>
-            </div>
+            </section>
+        </aside>
 
-            <div class="project-item">
-                <div class="project-info">
-                    <h3>Refactoring Practice</h3>
-                    <p>既有程式碼重構，提升可讀性與維護性。</p>
+        <article class="right-panel">
+            <section id="projects">
+                <h2>專案展示</h2>
+                <div class="project-grid">
+                    <div class="project-item">
+                        <h3>Core System</h3>
+                        <p>核心系統模組設計與實作。</p>
+                    </div>
+                    <div class="project-item">
+                        <h3>Refactoring Practice</h3>
+                        <p>既有程式碼重構實踐。</p>
+                    </div>
+                    <div class="project-item">
+                        <h3>DevOps Pipeline</h3>
+                        <p>CI/CD 流程自動化部署。</p>
+                    </div>
                 </div>
-            </div>
+            </section>
+        </article>
 
-            <div class="project-item">
-                <div class="project-info">
-                    <h3>DevOps Pipeline</h3>
-                    <p>CI/CD 流程設計與自動化部署實踐。</p>
-                </div>
-            </div>
-
-            <div class="project-item">
-                <div class="project-info">
-                    <h3>Technical Notes</h3>
-                    <p>整理學習筆記與技術知識，建立文件化能力。</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
+    </main>
 
     <footer>
-        <p>&copy; 2026 03 30</p>
+        <p>&copy; 2026 04 09</p>
     </footer>
 
 </body>
