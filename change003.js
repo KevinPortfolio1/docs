@@ -91,6 +91,11 @@ function renderChartsFromCache() {
  */
 function renderTemperatureChart(hourly) {
     const ctx = document.getElementById('tempChart').getContext('2d');
+	
+	ctx.parentElement.style.height = '350px'; 
+    ctx.parentElement.style.position = 'relative';
+	
+	
     if (charts.temp) charts.temp.destroy();
 
     charts.temp = new Chart(ctx, {
