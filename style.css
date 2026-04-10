@@ -1,4 +1,6 @@
-/* --- 全域設定 --- */
+/* ==========================================================================
+   1. 全域變數與重設 (Global Settings)
+   ========================================================================== */
 :root {
     --primary: #2563eb;
     --primary-hover: #1d4ed8;
@@ -18,19 +20,40 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%; /* 固定高度基準 */
+    height: 100%;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     color: var(--text-main);
     line-height: 1.6;
     background: var(--bg-gradient);
 }
 
-/* --- 佈局架構 --- */
+/* ==========================================================================
+   2. 顯示控制 (Display Control) - 實現切換功能的關鍵
+   ========================================================================== */
+
+/* 強制隱藏類別 */
+.hidden-section {
+    display: none !important;
+}
+
+/* Hero Header 樣式 */
+#hero-screen {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80') center/cover;
+    transition: opacity 0.5s ease;
+}
+
+/* Main App 初始隱藏，切換後使用 flex 佈局 */
 #main-app {
-    display: flex;
-    height: 100vh; /* 強制充滿視窗 */
+    display: none; /* JS 會在點擊後將其改為 display: flex */
+    height: 100vh;
     overflow: hidden;
 }
+
+/* ==========================================================================
+   3. 佈局架構 (Layout Architecture)
+   ========================================================================== */
 
 /* 側邊欄固定 */
 .side-panel {
@@ -49,14 +72,14 @@ body, html {
     background: #f8fafc;
 }
 
-/* --- 區塊顯示控制 --- */
+/* 內容區塊顯隱動畫 */
 .content-section {
-    display: none; /* 預設隱藏 */
-    animation: fadeIn 0.4s ease-out;
+    display: none; 
 }
 
 .content-section.active {
-    display: block; /* 啟用時顯示 */
+    display: block;
+    animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
@@ -64,20 +87,11 @@ body, html {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- 圖表核心修正：鎖定高度防止無限生長 --- */
-.chart-container {
-    position: relative;
-    height: 350px; /* 強制鎖定高度，這是解決你問題的關鍵 */
-    width: 100%;
-    margin-bottom: 20px;
-}
+/* ==========================================================================
+   4. 元件樣式 (Components)
+   ========================================================================== */
 
-canvas {
-    width: 100% !important;
-    height: 100% !important;
-}
-
-/* --- 個人名片與卡片樣式 --- */
+/* 卡片與陰影 */
 .card {
     background: var(--white);
     border-radius: 24px;
@@ -90,29 +104,12 @@ canvas {
     transform: translateY(-5px);
 }
 
-.badge {
-    display: inline-block;
-    background: #dcfce7;
-    color: #166534;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-
-/* --- 天文資訊裝飾 --- */
-#sun-info {
-    font-size: 1rem;
-    letter-spacing: 0.5px;
-}
-
-/* --- 側邊選單樣式 --- */
+/* 側邊選單按鈕 */
 .list-group-item {
     transition: var(--transition);
     border-radius: 8px !important;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .list-group-item.active {
@@ -124,10 +121,33 @@ canvas {
     background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* --- 響應式修正 --- */
+/* ==========================================================================
+   5. 圖表與氣象資訊 (Charts & Weather)
+   ========================================================================== */
+
+/* 鎖定高度防止 Chart.js 無限生長 */
+.chart-container {
+    position: relative;
+    height: 350px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+canvas {
+    max-width: 100% !important;
+}
+
+#sun-info {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   6. 響應式修正 (Responsive)
+   ========================================================================== */
 @media (max-width: 992px) {
     #main-app {
-        flex-direction: column; /* 手機版改為垂直 */
+        flex-direction: column;
         overflow: auto;
     }
     
@@ -142,6 +162,10 @@ canvas {
     }
     
     .chart-container {
-        height: 300px; /* 手機版稍微縮小圖表高度 */
+        height: 300px;
+    }
+
+    #hero-screen h1 {
+        font-size: 3rem;
     }
 }
