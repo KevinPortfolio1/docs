@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="style.css">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <script src="change001.js"></script> <script src="change002.js"></script> </head>
-<body class="bg-light">
+    <script src="changeall.js" defer></script> 
+</head> 
+<body class="bg-light"> 
 
-    <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm sticky-top">
+	<nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold text-primary" href="#">個人靜態網頁</a>
             <div class="navbar-nav ms-auto">
@@ -53,44 +53,41 @@
                         </div>
                     </section>
 
-                    <section id="skills-section" class="content-section" style="display: none;">
-                      <div class="card border-0 shadow-sm p-4 rounded-4">
-                        <h2>內容</h2>
-                        <p id="about-time-display2">透過 JavaScript 動態切換的內容... 此區塊可用於顯示詳細文字資料。</p>
-                      </div>
+                    <section id="skills-section" class="content-section">
+                        <div class="card border-0 shadow-sm p-4 rounded-4">
+                            <h2>內容</h2>
+                            <div id="about-time-display2">透過 JavaScript 動態切換的內容... 此區塊可用於顯示詳細文字資料。</div>
+                        </div>
                     </section>
 
-                    <section id="projects-section" class="content-section" style="display: none;">
-                      <div class="card border-0 shadow-sm p-4 rounded-4">
-                         <h2 class="mb-4">台北即時氣象監測</h2>
-                         <p class="text-muted small">資料來源：Open-Meteo API (每 10 分鐘自動更新)</p>
-                         
-                         <div class="row g-4">
-                            <div class="col-xl-8">
-                                <div class="p-3 border rounded-3 bg-light">
-                                    <h5 class="text-secondary mb-3">24小時溫度預報 (°C)</h5>
-                                    <div class="chart-container" style="position: relative; height: 350px;">
-                                        <canvas id="tempChart"></canvas>
+                    <section id="projects-section" class="content-section">
+                        <div class="card border-0 shadow-sm p-4 rounded-4">
+                             <h2 class="mb-4">台北即時氣象監測</h2>
+                             <p class="text-muted small">資料來源：Open-Meteo API</p>
+                             
+                             <div class="row g-4">
+                                <div class="col-xl-8">
+                                    <div class="p-3 border rounded-3 bg-light">
+                                        <h5 class="text-secondary mb-3">24小時溫度預報 (°C)</h5>
+                                        <div style="position: relative; height: 350px;">
+                                            <canvas id="tempChart"></canvas>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-4">
-                                <div class="p-3 border rounded-3 bg-light">
-                                    <h5 class="text-secondary mb-3">空氣品質 (PM2.5)</h5>
-                                    <div class="chart-container" style="position: relative; height: 350px;">
-                                        <canvas id="aqiChart"></canvas>
+                                <div class="col-xl-4">
+                                    <div class="p-3 border rounded-3 bg-light">
+                                        <h5 class="text-secondary mb-3">空氣品質 (PM2.5)</h5>
+                                        <div style="position: relative; height: 350px;">
+                                            <canvas id="aqiChart"></canvas>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                         </div>
-
-                         <div class="mt-4 p-3 bg-primary bg-opacity-10 rounded-3 border-start border-primary border-4">
-                             <div id="sun-info" class="mb-0 fw-bold text-primary">正在載入天文數據...</div>
-                         </div>
-                      </div>
+                             </div>
+                             <div class="mt-4 p-3 bg-primary bg-opacity-10 rounded-3 border-start border-primary border-4">
+                                 <div id="sun-info" class="mb-0 fw-bold text-primary">正在載入天文數據...</div>
+                             </div>
+                        </div>
                     </section>
-
                 </article>
             </div>
         </div>
