@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="style.css">
 	<script src="change001.js"></script>
 	<script src="change002.js"></script>
+	<script src="change003.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	
 </head>
 <body class="bg-light">
@@ -60,6 +62,27 @@
 			  <div class="card border-0 shadow-sm p-4 rounded-4">
 				 <h2>結論</h2>
 				 <p id="about-time-display3">透過 JavaScript 動態切換的內容...</p>
+				 <h2 class="mb-4">台北即時氣象監測</h2>
+    
+					<div class="row g-4">
+					  <div class="col-xl-8">
+						<div class="p-3 border rounded-3 bg-light">
+						  <h5 class="text-secondary mb-3">24小時溫度預報 (°C)</h5>
+						  <canvas id="tempChart"></canvas>
+						</div>
+					  </div>
+
+					  <div class="col-xl-4">
+						<div class="p-3 border rounded-3 bg-light">
+						  <h5 class="text-secondary mb-3">空氣品質指數 (AQI)</h5>
+						  <canvas id="aqiChart"></canvas>
+						</div>
+					  </div>
+					</div>
+
+					<div class="mt-4 p-3 bg-primary bg-opacity-10 rounded-3 border-start border-primary border-4">
+						<p id="sun-info" class="mb-0 fw-bold text-primary">正在載入天文數據...</p>
+					</div>
 			  </div>
 			</section>
 		</article>
