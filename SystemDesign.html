@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Design Blueprint 2026</title>
+    <style>
+        :root {
+            --brand: #6366f1;
+            --bg-dark: #0f172a;
+            --surface: #1e293b;
+            --text-p: #cbd5e1;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: white; margin: 0; }
+        
+        header { height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle at center, #1e1b4b 0%, var(--bg-dark) 100%); text-align: center; padding: 0 20px; }
+        header h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        main { max-width: 1200px; margin: -60px auto 4rem; padding: 0 20px; }
+
+        .component-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--surface); border: 1px solid #334155; padding: 2rem; border-radius: 12px; transition: 0.3s; cursor: pointer; }
+        .card:hover { border-color: var(--brand); transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.4); }
+        .card h3 { color: var(--brand); margin-top: 0; border-left: 4px solid var(--brand); padding-left: 10px; }
+        .card p { color: var(--text-p); font-size: 0.95rem; }
+
+        /* 模組詳情 (動態切換) */
+        #detail-view { margin-top: 3rem; background: #020617; border: 2px dashed #334155; border-radius: 16px; padding: 3rem; min-height: 200px; }
+        .hidden { display: none; }
+        
+        .badge { background: #312e81; color: #a5b4fc; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>System Design Blueprint</h1>
+        <p>構建高併發、高可用的分散式系統</p>
+    </header>
+
+    <main>
+        <div class="component-grid">
+            <div class="card" onclick="showDetail('lb')">
+                <h3>Load Balancer</h3>
+                <p>流量的分流者。確保請求均勻分配到健康的後端節點。</p>
+                <div><span class="badge">Nginx</span><span class="badge">HAProxy</span></div>
+            </div>
+            <div class="card" onclick="showDetail('cache')">
+                <h3>Caching Strategy</h3>
+                <p>極速回應的核心。將常用數據存放在記憶體中。</p>
+                <div><span class="badge">Redis</span><span class="badge">Memcached</span></div>
+            </div>
+            <div class="card" onclick="showDetail('mq')">
+                <h3>Message Queue</h3>
+                <p>異步處理與解耦。平衡生產者與消費者的速度差異。</p>
+                <div><span class="badge">Kafka</span><span class="badge">RabbitMQ</span></div>
+            </div>
+        </div>
+
+        <section id="detail-view">
+            <div id="default-msg">點擊上方卡片以查看深入架構解析...</div>
+            
+            <div id="lb-content" class="hidden">
+                <h2>負載均衡 (Load Balancing)</h2>
+                <p>在大規模系統中，單一伺服器無法承受所有流量。LB 位於客戶端與伺服器之間：</p>
+                <ul>
+                    <li><strong>L4 負載均衡：</strong> 基於 IP 和 Port 進行轉發。</li>
+                    <li><strong>L7 負載均衡：</strong> 基於 HTTP 內容、Cookie 進行智慧路由。</li>
+                </ul>
+            </div>
+
+            <div id="cache-content" class="hidden">
+                <h2>緩存策略 (Caching)</h2>
+                <p>如何保持數據一致性是關鍵：</p>
+                <ul>
+                    <li><strong>Cache Aside：</strong> 最常用，應用程式負責維護。</li>
+                    <li><strong>Write-Through：</strong> 寫入資料庫時同步寫入緩存。</li>
+                </ul>
+            </div>
+
+            <div id="mq-content" class="hidden">
+                <h2>消息隊列 (Message Queues)</h2>
+                <p>用於解決高併發寫入時的衝擊，實現「削峰填谷」：</p>
+                <ul>
+                    <li><strong>Pub/Sub：</strong> 訂閱發布模式，一對多。</li>
+                    <li><strong>FIFO Queue：</strong> 保證處理順序。</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showDetail(type) {
+            document.getElementById('default-msg').classList.add('hidden');
+            document.getElementById('lb-content').classList.add('hidden');
+            document.getElementById('cache-content').classList.add('hidden');
+            document.getElementById('mq-content').classList.add('hidden');
+
+            document.getElementById(type + '-content').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
