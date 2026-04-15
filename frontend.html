@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>現代前端框架介紹</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; background: var(--light); color: var(--dark); }
+        
+        /* Layout 結構 */
+        header { background: var(--dark); color: white; padding: 2rem; text-align: center; }
+        main { max-width: 800px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        footer { text-align: center; padding: 2rem; color: #64748b; font-size: 0.9rem; }
+
+        /* 切換按鈕樣式 */
+        .tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 2rem; }
+        .tab-btn { 
+            padding: 10px 20px; cursor: pointer; border: 2px solid var(--primary); 
+            background: transparent; color: var(--primary); border-radius: 5px; font-weight: bold; transition: 0.3s;
+        }
+        .tab-btn.active { background: var(--primary); color: white; }
+
+        /* 內容區塊控制 */
+        .content-section { display: none; animation: fadeIn 0.5s ease; }
+        .content-section.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        code { background: #e2e8f0; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>2026 前端技術導覽</h1>
+        <p>掌握主流框架，建構卓越體驗</p>
+    </header>
+
+    <main>
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="showTab('react')">React</button>
+            <button class="tab-btn" onclick="showTab('vue')">Vue.js</button>
+            <button class="tab-btn" onclick="showTab('angular')">Angular</button>
+        </nav>
+
+        <article id="react" class="content-section active">
+            <h2>React - 生態系領導者</h2>
+            <p>由 Meta 開發，強調<strong>聲明式 (Declarative)</strong> 與<strong>組件化</strong>。2026 年的 React 已經全面普及了 <code>React Compiler</code>。</p>
+            <ul>
+                <li><strong>核心概念：</strong> JSX、Virtual DOM、Hooks。</li>
+                <li><strong>優勢：</strong> 龐大的社群資源、靈活的架構。</li>
+                <li><strong>最新動態：</strong> 自動化性能優化，無需手動處理 <code>useMemo</code>。</li>
+            </ul>
+        </article>
+
+        <article id="vue" class="content-section">
+            <h2>Vue.js - 漸進式框架</h2>
+            <p>由尤雨溪開發，以<strong>易上手</strong>與<strong>優雅的語法</strong>著稱。Composition API 讓邏輯複用變得極其簡單。</p>
+            <ul>
+                <li><strong>核心概念：</strong> SFC (單文件組件)、響應式系統。</li>
+                <li><strong>優勢：</strong> 學習曲線平緩、官方文檔極其優秀。</li>
+                <li><strong>最新動態：</strong> Vapor Mode 提供不依賴 Virtual DOM 的極致性能。</li>
+            </ul>
+        </article>
+
+        <article id="angular" class="content-section">
+            <h2>Angular - 企業級平台</h2>
+            <p>由 Google 維護，是一個<strong>全功能 (Full-featured)</strong> 的框架，內建了開發大型應用所需的一切工具。</p>
+            <ul>
+                <li><strong>核心概念：</strong> TypeScript 原生支持、Dependency Injection、Signals。</li>
+                <li><strong>優勢：</strong> 強制性的架構規範，適合超大型團隊協作。</li>
+                <li><strong>最新動態：</strong> 引入了更輕量、更快速的 <code>Zoneless</code> 響應式機制。</li>
+            </ul>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 現代網頁開發範例 | 使用 HTML5 + CSS3 + Vanilla JS 製作</p>
+    </footer>
+
+    <script>
+        function showTab(frameworkId) {
+            // 隱藏所有內容
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // 取消所有按鈕的高亮
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // 顯示當前選中的內容與按鈕高亮
+            document.getElementById(frameworkId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
