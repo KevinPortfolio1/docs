@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps & Cloud 2026 導覽</title>
+    <style>
+        :root {
+            --neon-green: #10b981;
+            --terminal-bg: #0a0a0a;
+            --panel-bg: #171717;
+            --text-gray: #a3a3a3;
+        }
+        body { font-family: 'JetBrains Mono', 'Fira Code', monospace; background: var(--terminal-bg); color: white; margin: 0; }
+        
+        header { padding: 4rem 2rem; border-bottom: 1px solid #262626; text-align: center; }
+        header h1 { font-size: 2.5rem; color: var(--neon-green); margin-bottom: 0.5rem; }
+        header p { color: var(--text-gray); }
+
+        main { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+
+        /* 切換導覽 */
+        .nav-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 3rem; }
+        .nav-item { 
+            background: var(--panel-bg); border: 1px solid #262626; padding: 1.5rem; 
+            text-align: center; cursor: pointer; transition: 0.3s; border-radius: 4px;
+        }
+        .nav-item:hover { border-color: var(--neon-green); transform: translateY(-3px); }
+        .nav-item.active { border-bottom: 3px solid var(--neon-green); background: #1a1a1a; }
+        .nav-item h3 { margin: 0; font-size: 1.1rem; }
+
+        /* 內容區塊 */
+        .content-card { 
+            background: var(--panel-bg); border-radius: 8px; padding: 2.5rem; 
+            display: none; animation: fadeIn 0.4s ease; min-height: 450px;
+        }
+        .content-card.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .feature-list { list-style: none; padding: 0; }
+        .feature-list li { margin-bottom: 1rem; padding-left: 1.5rem; position: relative; }
+        .feature-list li::before { content: '>'; position: absolute; left: 0; color: var(--neon-green); }
+
+        .code-window { background: #000; border-radius: 4px; padding: 1rem; color: #d1d5db; overflow-x: auto; border-left: 4px solid var(--neon-green); }
+
+        footer { text-align: center; padding: 4rem; color: #404040; border-top: 1px solid #262626; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>DevOps & Cloud Ecosystem</h1>
+        <p>$ curl -X GET "https://api.infra.2026/overview"</p>
+    </header>
+
+    <main>
+        <nav class="nav-grid">
+            <div class="nav-item active" onclick="showTab('ci-cd')">
+                <h3>CI/CD Pipeline</h3>
+                <small>自動化交付</small>
+            </div>
+            <div class="nav-item" onclick="showTab('iac')">
+                <h3>IaC & GitOps</h3>
+                <small>基礎設施即代碼</small>
+            </div>
+            <div class="nav-item" onclick="showTab('observability')">
+                <h3>Observability</h3>
+                <small>可觀測性與監控</small>
+            </div>
+        </nav>
+
+        <article id="ci-cd" class="content-card active">
+            <h2>持續整合與持續部署 (CI/CD)</h2>
+            <p>2026 年的 CI/CD 強調「安全性左移」與 AI 輔助測試。流水線不再只是編譯腳本，而是完整的合規性驗證中心。</p>
+            <ul class="feature-list">
+                <li><strong>AI 自動化測試：</strong> 透過 LLM 自動生成測試案例與修復建議。</li>
+                <li><strong>供應鏈安全：</strong> 原生支持 SBOM (軟體清單) 生成與鏡像簽名。</li>
+                <li><strong>漸進式交付：</strong> 金絲雀發布 (Canary) 與藍綠部署的自動化控制。</li>
+            </ul>
+            <div class="code-window">
+                <pre># GitHub Actions 範例
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: AI Security Scan
+        uses: ai-sec/scanner@v2</pre>
+            </div>
+        </article>
+
+        <article id="iac" class="content-card">
+            <h2>IaC & GitOps 基礎設施管理</h2>
+            <p>基礎設施的定義已完全代碼化。Git 是真理的唯一來源 (Source of Truth)。</p>
+            <ul class="feature-list">
+                <li><strong>Terraform / OpenTofu：</strong> 跨雲資源編排。</li>
+                <li><strong>Crossplane：</strong> 將雲服務轉化為 K8s 客製化資源 (CRD)。</li>
+                <li><strong>自動漂移檢測：</strong> 即時修正與 Git 代碼不一致的基礎設施狀態。</li>
+            </ul>
+            <div class="code-window">
+                <pre>resource "aws_eks_cluster" "prod" {
+  name     = "cloud-native-2026"
+  version  = "1.31"
+  # 基礎設施定義自動化
+}</pre>
+            </div>
+        </article>
+
+        <article id="observability" class="content-card">
+            <h2>Observability 2.0 (可觀測性)</h2>
+            <p>超越傳統監控，現在我們關注「Melts」數據：Metrics, Events, Logs, Traces, Spans。</p>
+            <ul class="feature-list">
+                <li><strong>OpenTelemetry：</strong> 統一的數據採集標準，告別供應商綁定。</li>
+                <li><strong>eBPF 技術：</strong> 無需侵入代碼即可獲取深層核心性能指標。</li>
+                <li><strong>AIOps 告警：</strong> AI 自動過濾雜訊，精準定位根因 (Root Cause)。</li>
+            </ul>
+            <p>推薦工具：Grafana, Prometheus, Honeycomb。</p>
+        </article>
+    </main>
+
+    <footer>
+        <p>Continuous Integration . Continuous Delivery . Continuous Learning</p>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.content-card').forEach(card => card.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
