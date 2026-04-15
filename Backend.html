@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Backend 現代後端架構導覽</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text-main); margin: 0; line-height: 1.6; }
+        
+        /* Header */
+        header { height: 30vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border-bottom: 1px solid #334155; }
+        header h1 { font-size: 2.5rem; margin: 0; color: var(--accent); }
+        header p { color: var(--text-muted); margin-top: 0.5rem; }
+
+        /* Main Content */
+        main { max-width: 1000px; margin: -50px auto 2rem; padding: 0 1rem; }
+        
+        .nav-container { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+        .nav-btn { 
+            background: var(--card-bg); border: 1px solid #334155; color: var(--text-main); 
+            padding: 1rem 2rem; border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: 600;
+        }
+        .nav-btn:hover { border-color: var(--accent); }
+        .nav-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+        .architecture-card { 
+            background: var(--card-bg); padding: 2.5rem; border-radius: 16px; border: 1px solid #334155;
+            display: none; min-height: 400px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
+        }
+        .architecture-card.active { display: block; animation: slideUp 0.4s ease-out; }
+
+        .tech-tags { display: flex; gap: 0.5rem; margin: 1rem 0; flex-wrap: wrap; }
+        .tag { background: #334155; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; color: var(--accent); }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Footer */
+        footer { text-align: center; padding: 3rem; border-top: 1px solid #334155; color: var(--text-muted); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Backend Architecture 2026</h1>
+        <p>從單體到分散式，探索現代後端核心</p>
+    </header>
+
+    <main>
+        <nav class="nav-container">
+            <button class="nav-btn active" onclick="switchArch('micro')">微服務 (Microservices)</button>
+            <button class="nav-btn" onclick="switchArch('serverless')">無伺服器 (Serverless)</button>
+            <button class="nav-btn" onclick="switchArch('edge')">邊緣計算 (Edge)</button>
+        </nav>
+
+        <article id="micro" class="architecture-card active">
+            <h2>Microservices Architecture</h2>
+            <div class="tech-tags">
+                <span class="tag">Go / Rust</span><span class="tag">gRPC</span><span class="tag">Kubernetes</span><span class="tag">Service Mesh</span>
+            </div>
+            <p>微服務架構將應用程式拆分為一組小型、獨立的服務，每個服務運行在其進程中，並透過輕量級機制（通常是 HTTP/gRPC）通訊。</p>
+            <h3>核心技術：</h3>
+            <ul>
+                <li><strong>容器化：</strong> 使用 Docker 與 K8s 進行標準化部署。</li>
+                <li><strong>API 網關：</strong> 統一入口，處理負載均衡與認證。</li>
+                <li><strong>可觀測性：</strong> OpenTelemetry 追蹤跨服務調用。</li>
+            </ul>
+        </article>
+
+        <article id="serverless" class="architecture-card">
+            <h2>Serverless & Event-Driven</h2>
+            <div class="tech-tags">
+                <span class="tag">AWS Lambda</span><span class="tag">Node.js</span><span class="tag">EventBridge</span><span class="tag">DynamoDB</span>
+            </div>
+            <p>開發者只需專注於代碼邏輯（FaaS），基礎設施的維護、擴展與縮減完全由雲端供應商自動處理。</p>
+            <h3>核心技術：</h3>
+            <ul>
+                <li><strong>按需縮放：</strong> 流量零時不計費，流量暴增時秒級擴充。</li>
+                <li><strong>事件驅動：</strong> 透過 SQS 或 Kafka 進行異步解耦。</li>
+                <li><strong>冷啟動優化：</strong> 2026 年的技術已實現接近零延遲的啟動速度。</li>
+            </ul>
+        </article>
+
+        <article id="edge" class="architecture-card">
+            <h2>Edge Computing Architecture</h2>
+            <div class="tech-tags">
+                <span class="tag">Cloudflare Workers</span><span class="tag">WebAssembly</span><span class="tag">Edge DB</span>
+            </div>
+            <p>將運算能力推向離使用者最近的邊緣節點，大幅降低延遲，提升全球回應速度。</p>
+            <h3>核心技術：</h3>
+            <ul>
+                <li><strong>Wasm 執行：</strong> 在邊緣端運行高性能的二進位代碼。</li>
+                <li><strong>邊緣數據庫：</strong> 如 Turso 或 Cloudflare D1，實現數據的全球分佈。</li>
+                <li><strong>本地化處理：</strong> 敏感數據在當地處理，符合法規要求。</li>
+            </ul>
+        </article>
+    </main>
+
+    <footer>
+        <p>Designed for Modern Backend Engineers | 2026 Architecture Insights</p>
+    </footer>
+
+    <script>
+        function switchArch(id) {
+            // 切換內容顯示
+            document.querySelectorAll('.architecture-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+
+            // 切換按鈕狀態
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
